@@ -23,7 +23,7 @@
           @menu-change="(event: any) => emits('menuChange', event)"
         >
           <template
-            v-for="item in options.toolbar?.menus"
+            v-for="item in calMenus"
             :key="item"
             #[`toolbar_${item}`]="slotProps"
           >
@@ -140,6 +140,17 @@ watch(
   () => setOptions(props),
   { deep: true },
 )
+//记录重新构造后的menus 内容，包含扩展tab
+const calMenus = [...(options.value.toolbar?.menus ?? [])]
+const toolbarextensions = props?.toolbar?.extensions
+if (toolbarextensions) {
+  for (const ext of toolbarextensions) {
+    if (!ext.name || !ext.value || calMenus.includes(ext.value)) {
+      continue
+    }
+    calMenus.push(ext.value)
+  }
+}
 
 watch(
   () => options.value.theme,

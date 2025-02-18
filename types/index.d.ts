@@ -76,6 +76,7 @@ export interface ToolbarOptions {
       messages: { type: string; message: string }
     }>
   }
+  extensions: Array[]
 }
 
 export interface AutoSaveOptions {

@@ -367,6 +367,7 @@ const defaultOptions: UmoEditorOptions = {
       options: {},
       useCustomMethod: false,
     },
+    extensions: [], //extensions:[{name:"公文办公",value:"muoffice"}]
   },
   page: {
     defaultMargin: {
@@ -758,6 +759,15 @@ const ojbectSchema = new ObjectSchema({
             throw new Error(
               'Key "toolbar": Key "disableMenuItems" must be a array.',
             )
+          }
+        },
+        required: false,
+      },
+      extensions: {
+        merge: 'replace',
+        validate(value: string[]) {
+          if (value && !Array.isArray(value)) {
+            throw new Error('Key "toolbar": Key "extensions" must be a array.')
           }
         },
         required: false,
